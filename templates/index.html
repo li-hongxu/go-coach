@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>围棋AI教练</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 围棋AI教练</h1>
+            <p>专为围棋新手设计的智能学习系统</p>
+        </header>
+
+        <div class="game-controls">
+            <div class="control-group">
+                <label for="difficulty">AI难度:</label>
+                <select id="difficulty">
+                    <option value="beginner">新手</option>
+                    <option value="intermediate">中级</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="board-size">棋盘大小:</label>
+                <select id="board-size">
+                    <option value="9">9x9</option>
+                    <option value="13">13x13</option>
+                    <option value="19" selected>19x19</option>
+                </select>
+            </div>
+            
+            <div class="button-group">
+                <button id="new-game-btn" class="btn btn-primary">新游戏</button>
+                <button id="get-hint-btn" class="btn btn-secondary">获取提示</button>
+                <button id="ai-move-btn" class="btn btn-accent">AI落子</button>
+                <button id="reset-btn" class="btn btn-danger">重置</button>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="board-container">
+                <canvas id="go-board" width="760" height="760"></canvas>
+                <div id="coordinates"></div>
+            </div>
+            
+            <div class="info-panel">
+                <div class="game-info">
+                    <h3>游戏信息</h3>
+                    <div class="status">
+                        <div class="current-player">
+                            <span>当前玩家:</span>
+                            <span id="current-player-display">黑棋</span>
+                        </div>
+                        <div class="captured-stones">
+                            <span>被提子数:</span>
+                            <span>黑: <span id="black-captured">0</span></span>
+                            <span>白: <span id="white-captured">0</span></span>
+                        </div>
+                        <div class="move-count">
+                            <span>手数: <span id="move-count">0</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-suggestions">
+                    <h3>AI建议</h3>
+                    <div id="suggestions-list"></div>
+                </div>
+
+                <div class="move-analysis">
+                    <h3>落子分析</h3>
+                    <div id="analysis-result"></div>
+                </div>
+
+                <div class="game-messages">
+                    <h3>游戏消息</h3>
+                    <div id="message-log"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/go-board.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game-controller.js') }}"></script>
+    <script>
+        // 初始化游戏
+        window.addEventListener('DOMContentLoaded', function() {
+            const gameController = new GameController();
+            gameController.init();
+        });
+    </script>
+</body>
+</html>
